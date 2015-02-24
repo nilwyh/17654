@@ -253,7 +253,7 @@ public class ShapeClassifier {
 	
 	public static void main(String[] args) {
 		String t="aasw23qda";
-		SC p=new SC();
+		ShapeClassifier p=new ShapeClassifier();
 		System.out.print(p.evaluateGuess(t));
 	}
 }
