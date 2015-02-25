@@ -1,13 +1,13 @@
 
 package G2;
 
-public class SC {
+public class ShapeClassifier {
 	private int badGuesses; 
 	private String[] threeParamGuesses = {"Equilateral", "Isosceles", "Scalene"};
 	private String[] fourParamGuesses = {"Rectangle", "Square"};
 	private String[] twoParamGuesses = {"Circle", "Ellipse", "Line"};
 
-	public SC() {
+	public ShapeClassifier() {
 		badGuesses = 0;
 	}
 
