@@ -1,4 +1,3 @@
-
 package G2;
 
 public class ShapeClassifier {
@@ -97,31 +96,12 @@ public class ShapeClassifier {
 			badGuesses=0;
 			return "Yes";
 		}
-		else if (isShapeGuessCorrect) {
-			badGuesses=0;		
-			String ans= "Yes: ";
-			boolean need_comma=false;
-
-			if (isSizeGuessCorrect) {
-				ans = "Wrong Size";
-				need_comma=true;
-			}		
-
-			if (!isEvenOddCorrect) {
-				if (need_comma) { 
-					ans += ",";
-				}
-				ans += "Wrong Even/Odd";
-			}	
-			return ans;
-		}
 		else {
 			// too many bad guesses
 			badGuesses++;
 			if (badGuesses >= 3) {
 				System.out.println("Bad guess limit Exceeded");
 				System.exit(1);
-
 			}
 			return "No";
 		}
@@ -242,12 +222,5 @@ public class ShapeClassifier {
 			}  
 		}
 		return "";
-	}
-	
-	
-	public static void main(String[] args) {
-		String t="aasw23qda";
-		ShapeClassifier p=new ShapeClassifier();
-		System.out.print(p.evaluateGuess(t));
 	}
 }
