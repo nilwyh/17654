@@ -1,13 +1,13 @@
 
 package G2;
 
-public class ShapeClassifier {
+public class SC {
 	private int badGuesses; 
 	private String[] threeParamGuesses = {"Equilateral", "Isosceles", "Scalene"};
 	private String[] fourParamGuesses = {"Rectangle", "Square"};
 	private String[] twoParamGuesses = {"Circle", "Ellipse", "Line"};
 
-	public ShapeClassifier() {
+	public SC() {
 		badGuesses = 0;
 	}
 
@@ -20,7 +20,8 @@ public class ShapeClassifier {
 		String sizeGuess = getSizeGuess(arg);
 		String evenOddGuess = getEvenOddGuess(arg);
 		int calcPerim = 0;
-
+		int calcProduct=0;
+		
 		if (shapeGuess == null)
 			shapeGuess = "";
 
@@ -68,6 +69,10 @@ public class ShapeClassifier {
 		Boolean isSizeGuessCorrect = null;
 		Boolean isEvenOddCorrect = null;
 
+		calcProduct=getProduct(parameters);
+		
+		
+		
 		// check the shape guess
 		if (shapeGuessResult.equals(shapeGuess))
 			isShapeGuessCorrect = true;
@@ -75,21 +80,21 @@ public class ShapeClassifier {
 			isShapeGuessCorrect = false;
 
 		// check the size guess
-
-		if (calcPerim > 200 && sizeGuess.equals("Large")) {
+		//1 bug
+		if (calcPerim > 100 && sizeGuess.equals("Large")) {
 			isSizeGuessCorrect = true;
-		}
-		else if (calcPerim < 10 && sizeGuess.equals("Small")) {
+		}//1 bug
+		else if (calcPerim <= 100 && sizeGuess.equals("Small")) {
 			isSizeGuessCorrect = true;	
 		}
 		else { 
 			isSizeGuessCorrect = false;
 		}
 
-		if ( 0 == (calcPerim % 2) && evenOddGuess.equals("Yes")) {
+		if ( 0 == (calcProduct % 2) && evenOddGuess.equals("Yes")) {
 			isEvenOddCorrect = true;
 		}
-		else if ( 0 != (calcPerim % 2) && evenOddGuess.equals("No")) {
+		else if ( 0 != (calcProduct % 2) && evenOddGuess.equals("No")) {
 			isEvenOddCorrect = true;
 		}
 		else { 
@@ -100,34 +105,23 @@ public class ShapeClassifier {
 			badGuesses=0;
 			return "Yes";
 		}
-		else if (isShapeGuessCorrect) {
-			badGuesses=0;		
-			String ans= "Yes: ";
-			boolean need_comma=false;
-
-			if (!isSizeGuessCorrect) {
-				ans = "Wrong Size";
-				need_comma=true;
-			}		
-
-			if (!isEvenOddCorrect) {
-				if (need_comma) { 
-					ans += ",";
-				}
-				ans += "Wrong Even/Odd";
-			}	
-			return ans;
-		}
 		else {
 			// too many bad guesses
 			badGuesses++;
 			if (badGuesses >= 3) {
 				System.out.println("Bad guess limit Exceeded");
 				System.exit(1);
-
 			}
 			return "No";
 		}
+	}
+	//product of all sides
+	private int getProduct(Integer[] parameters) {
+		int ans=1;
+		for (int i:parameters){
+			ans*=i;
+		}
+		return ans;
 	}
 
 	// P = 2 * PI *r
@@ -164,6 +158,7 @@ public class ShapeClassifier {
 	// PI(3(a+b) - sqrt((3a+b)(a+3b))
 	private int calculateEllipsePerimeter(int a, int b) {
 		double da = a, db = b;
+		//TODO hiden bug
 		return (int) ( Math.PI * (3 * (da+db) - Math.sqrt((3*da+db)*(da+3*db)))); 
 	}
 
@@ -251,9 +246,5 @@ public class ShapeClassifier {
 	}
 	
 	
-	public static void main(String[] args) {
-		String t="aasw23qda";
-		ShapeClassifier p=new ShapeClassifier();
-		System.out.print(p.evaluateGuess(t));
-	}
+	
 }
